@@ -1,0 +1,20 @@
+<h1><%= @task_list.name %></h1>
+<%= link_to "Completed Tasks", "/complete/#{@task_list.id}/task" %>
+<%= form_for @task_list, url: "/delete_task/#{@task_list.id}", method: :delete, html: {class: "put"} do |f| %>
+    <%= f.submit "delete" %>
+<% end %>
+
+
+<% @task_list.tasks.order(:datetime).each do |task| %>
+    <% unless task.complete %>
+        <p><%= task.name %>
+          <%= link_to "/task/delete/#{task.id}", method: :delete, data: {confirm: 'Are you sure?'} do %>
+              <span type="button">Delete</span>
+          <% end %>
+          <%= form_for task, url: "/complete_task/#{task.id}", html: {class: "put"} do |f| %>
+              <%= f.hidden_field :complete, value: "1" %>
+              <%= f.submit "Complete" %></p>
+          <% end %>
+    <% end %>
+
+<% end %>

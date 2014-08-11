@@ -14,6 +14,8 @@ feature 'Auth' do
     fill_in "Password", with: "password"
     click_on "Login"
     expect(page).to have_content("user@example.com")
+
+
   end
 
 end

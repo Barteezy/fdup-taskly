@@ -1,0 +1,12 @@
+<h1>Add a task</h1>
+
+<% if @task.errors[:name].any? %>
+    <span style="color:red"><p>Your task could not be created</p></span>
+<%end%>
+<%= form_for @task, url: "/task/new/:id", html: {method: "post"} do |f| %>
+    <%= f.label :name %>
+    <%= f.text_field :name %><br>
+    <%= select_date Date.today, prefix: :datetime %>
+    <%= f.hidden_field :task_list_id%>
+    <%= f.submit "Create task" %>
+<% end %>
